@@ -1,0 +1,23 @@
+{
+  "name": "osd-cli",
+  "version": "1.0.0",
+  "main": "osd-cli.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "osd-cli": "osd-cli.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@langchain/core": "^0.3.55",
+    "@langchain/google-genai": "^0.2.7",
+    "colors": "^1.4.0",
+    "commander": "^13.1.0",
+    "dotenv": "^16.5.0",
+    "langchain": "^0.3.24"
+  }
+}
