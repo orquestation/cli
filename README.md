@@ -1,3 +1,5 @@
+![OSD-cli](https://github.com/nardote/osd-cli/blob/main/assets/logo.png "OSD-cli Logo")
+
 # OSD-cli (orquestation software development)
 
 osd es una propuesta para estructrar el desarrollo de software con Inteligencia Artifical. Definido reglas claras en el contexto de cada bloque de codigo.
