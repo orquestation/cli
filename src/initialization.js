@@ -9,48 +9,52 @@ export default async function Initialization(
   options = { onlyConfig: false }
 ) {
   const configFilePath = path.join(projectFolder, DEFAULTS.generalConfigFile);
-  //check if exists config file
-  if (!fs.existsSync(configFilePath)) {
-    log("Initalization project", "msg");
-    // create a general default file
-    await persistFile(
-      configFilePath,
-      JSON.stringify(
-        {
-          prompt: "all is in javascript and imports are module",
-          language: {
-            extension: "js",
+  try {
+    //check if exists config file
+    if (!fs.existsSync(configFilePath)) {
+      log("Initalization project", "msg");
+      // create a general default file
+      await persistFile(
+        configFilePath,
+        JSON.stringify(
+          {
+            prompt: "all is in javascript and imports are module",
+            language: {
+              extension: "js",
+            },
+            promptFolder: DEFAULTS.promptFolder,
+            testFolder: DEFAULTS.testFolder,
+            srcFolder: DEFAULTS.srcFolder,
+            enviromentVariable: DEFAULTS.enviromentVariable,
           },
-          promptFolder: DEFAULTS.promptFolder,
-          testFolder: DEFAULTS.testFolder,
-          srcFolder: DEFAULTS.srcFolder,
-          enviromentVariable: DEFAULTS.enviromentVariable,
-        },
-        null,
-        2
-      )
-    );
-  }
+          null,
+          2
+        )
+      );
+    }
 
-  //getconfig prexistent
-  const configPreExistent = JSON.parse(
-    await fs.readFileSync(configFilePath, "utf8")
-  );
+    //getconfig prexistent
+    const configPreExistent = JSON.parse(
+      await fs.readFileSync(configFilePath, "utf8")
+    );
 
-  if (!options.onlyConfig) {
-    //create folder prompts
-    await fs.promises.mkdir(
-      path.join(projectFolder, configPreExistent.promptFolder),
-      {
-        recursive: true,
-      }
-    );
-    //create test folder
-    await fs.promises.mkdir(
-      path.join(projectFolder, configPreExistent.testFolder),
-      {
-        recursive: true,
-      }
-    );
+    if (!options.onlyConfig) {
+      //create folder prompts
+      await fs.promises.mkdir(
+        path.join(projectFolder, configPreExistent.promptFolder),
+        {
+          recursive: true,
+        }
+      );
+      //create test folder
+      await fs.promises.mkdir(
+        path.join(projectFolder, configPreExistent.testFolder),
+        {
+          recursive: true,
+        }
+      );
+    }
+  } catch (e) {
+    log(e.message, "error");
   }
 }

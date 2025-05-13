@@ -17,7 +17,7 @@ async function processFiles(pathProject) {
     Context.inti(currentDir);
     folderHandler();
   } catch (e) {
-    log(e, "error");
+    log(e.message, "error");
   }
 }
 
