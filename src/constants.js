@@ -3,7 +3,7 @@ const DEFAULTS = {
   srcFolder: "src",
   testFolder: "__tests__",
   generalConfigFile: ".osd",
-  extensionPrompt: ".osd.json",
+  extensionPrompt: ".osd",
   enviromentVariable: ".env",
   AI_API_KEY: "AI_API_KEY",
 };

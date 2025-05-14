@@ -9,18 +9,17 @@ import persistFile from "./persistFile.js";
 import log from "./logger.js";
 
 import Context from "./context.js";
-import { DEFAULTS, ENABLE_PROMPT_EXTENSION } from "./constants.js";
+import { DEFAULTS } from "./constants.js";
 
 function getFolderStructure(rootPath, filePath) {
   return filePath.replace(rootPath, "");
 }
 
 export default async function fileHadler(file) {
+  console.group(file.name);
   const newFileName = `${file.name.split(DEFAULTS.extensionPrompt)[0]}.${
     Context.generalConfig.language.extension
   }`;
-
-  log(`File ${file.name} -> New File ${newFileName}`, "msg");
 
   const filePath = path.join(file.parentPath, file.name);
 
@@ -53,17 +52,21 @@ export default async function fileHadler(file) {
         break;
     }
 
-    log(fileContent, "debug");
+    log.debug(fileContent);
 
-    if (fileContent.block) {
-      log(`BLOCKED ${path.join(file.parentPath, file.name)}`, "warn");
+    if (fileContent.block && !Context.ignoreBlocked) {
+      log.warn(`BLOCKED ${path.join(file.parentPath, file.name)}`);
+
+      console.groupEnd(file.name);
       return false;
     }
 
-    log(`WORKING ${path.join(file.parentPath, file.name)}`, "msg");
+    log.msg(`File ${file.name} -> New File ${newFileName}`);
+
+    log.msg(`WORKING ${path.join(file.parentPath, file.name)}`);
 
     const generatedCode = await askToIa(fileContent, Context.generalConfig);
-    console.log({ generatedCode });
+
     const jsonGeneratedCode = JSON.parse(
       generatedCode
         .replace("```json", "")
@@ -80,11 +83,13 @@ export default async function fileHadler(file) {
     if (jsonGeneratedCode.externals) {
       await runCommand(Context.projectFolder, jsonGeneratedCode.externals);
     }
-    console.log(`Código generado guardado en: ${newFileName}`);
+
     return true;
   } catch (error) {
     throw new Error(
       `Error al procesar el archivo "${file.name}": ${error.message}`
     );
+  } finally {
+    console.groupEnd(file.name);
   }
 }

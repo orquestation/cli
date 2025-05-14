@@ -1,21 +1,19 @@
 import colors from "colors";
 
-export default function log(message, level) {
-  switch (level) {
-    case "error":
-      console.error(colors.red(message));
-      break;
-    case "debug":
-      console.log(message);
-      break;
-    case "msg":
-      console.log(colors.green(message));
-      break;
-    case "warn":
-      console.warn(colors.yellow(message));
-      break;
-    default:
-      console.log(message);
-      break;
+export default class log {
+  static error(msg) {
+    console.error(colors.red(msg));
+  }
+
+  static debug(msg) {
+    if (process.env.OSD_DEBUG) console.log(colors.bgWhite(msg));
+  }
+
+  static msg(msg) {
+    console.log(colors.green(msg));
+  }
+
+  static warn(msg) {
+    console.warn(colors.yellow(msg));
   }
 }

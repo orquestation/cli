@@ -2,6 +2,7 @@ import path from "path";
 import fs from "fs";
 
 import { DEFAULTS } from "./constants.js";
+import log from "./logger.js";
 
 class Context {
   projectFolder;
@@ -11,6 +12,7 @@ class Context {
   generalConfigFile;
 
   generalConfig;
+  ignoreBlocked;
 
   constructor() {}
 
@@ -47,6 +49,10 @@ class Context {
     this.validateEniromentVariable();
   }
 
+  setIgnoreBlocked() {
+    this.ignoreBlocked = true;
+  }
+
   validateEniromentVariable() {
     if (!fs.existsSync(this.enviromentVariable)) {
       throw new Error(
@@ -64,7 +70,6 @@ class Context {
   }
 
   validateFolderEstructure() {
-    console.log(this.promptFolder);
     if (!fs.existsSync(this.promptFolder)) {
       throw new Error(
         `Error: La carpeta  ${DEFAULTS.promptFolder} no existe en "${this.promptFolder}".`
@@ -81,7 +86,7 @@ class Context {
   loadConfig() {
     try {
       const generalConfig = fs.readFileSync(this.generalConfigFile, "utf8");
-      console.log(`Archivo de configuración leído`);
+      log.msg(`Archivo de configuración leído`);
       this.generalConfig = JSON.parse(generalConfig);
     } catch (err) {
       throw new Error(

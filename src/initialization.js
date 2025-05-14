@@ -12,7 +12,7 @@ export default async function Initialization(
   try {
     //check if exists config file
     if (!fs.existsSync(configFilePath)) {
-      log("Initalization project", "msg");
+      log.msg("Initalization project");
       // create a general default file
       await persistFile(
         configFilePath,
@@ -55,6 +55,6 @@ export default async function Initialization(
       );
     }
   } catch (e) {
-    log(e.message, "error");
+    log.error(e.message);
   }
 }
