@@ -1,17 +1,14 @@
 {
-  "name": "osd-cli",
-  "version": "1.0.0",
+  "name": "@orquestation/cli",
+  "version": "0.0.1",
   "main": "osd-cli.js",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "bin": {
     "osd-cli": "osd-cli.js"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "Adrian Cavicchia",
+  "license": "AGPL-3.0-only",
+  "description": "Orquestation Software Development CLI",
   "dependencies": {
     "@langchain/core": "^0.3.55",
     "@langchain/google-genai": "^0.2.7",
