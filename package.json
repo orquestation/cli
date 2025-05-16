@@ -2,12 +2,20 @@
   "name": "@orquestation/cli",
   "version": "0.0.1",
   "main": "osd-cli.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orquestation/cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/orquestation/cli/issues"
+  },
+  "homepage": "https://github.com/orquestation/cli#readme",
   "type": "module",
   "bin": {
     "osd-cli": "osd-cli.js"
   },
   "author": "Adrian Cavicchia",
-  "license": "AGPL-3.0-only",
+  "license": "AGPL-3.0",
   "description": "Orquestation Software Development CLI",
   "dependencies": {
     "@langchain/core": "^0.3.55",
