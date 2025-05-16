@@ -1,44 +1,45 @@
 ![OSD-cli](https://github.com/nardote/osd-cli/blob/main/assets/logo.png "OSD-cli Logo")
 
-# OSD-cli (orquestation software development)
-OSD te devuelve el poder sobre el código generado por IA. En lugar de tratar con 'cajas negras' difíciles de gestionar, OSD estructura tu desarrollo mediante 'prompts' de diseño claros y versionables —almacenados en archivos .osd individuales— para cada módulo de tu aplicación. Define el contexto global y las directrices del lenguaje en un archivo de configuración central .osd, y observa cómo la herramienta orquesta la creación de código fuente predecible y los tests correspondientes en tu lenguaje preferido. ¿Necesitas modificar, regenerar o entender una funcionalidad? Simplemente revisa o ajusta su prompt. Con OSD-cli, transformas los prompts en la columna vertebral de un desarrollo ágil, mantenible y auto-documentado, recuperando el control y la claridad en la era de la IA.
+# OSD-cli (Orchestration Software Development)
 
-## Instalacion
+OSD gives you back control over AI-generated code. Instead of dealing with hard-to-manage "black boxes," OSD structures your development through clear, versionable design prompts — stored in individual .osd files — for each module of your application. Define the global context and language guidelines in a central configuration file (.osd), and watch the tool orchestrate predictable source code creation along with the corresponding tests in your preferred language. Need to modify, regenerate, or understand a functionality? Just review or tweak its prompt. With OSD-cli, prompts become the backbone of an agile, maintainable, and self-documented development process — restoring control and clarity in the AI era.
 
-Clonar proyecto
+## Installation
+
+Clone the project:
 
 ```bash
 git clone git@github.com:nardote/osd-cli.git
 ```
 
-Definir como global osd-cli
+Set osd-cli as global:
 
 ```bash
-npm i -g .
+npm i -g @orquestation/cli
 ```
 
-## Setup del proyecto
+## Project Setup
 
-Crear carpeta de tu nuevo proyecto
+Create a folder for your new project:
 
 ```bash
 mkdir new-project
 ```
 
-Crear un archivo .env con la variable AI_API_KEY (por le momento solo trabaja con Gemini, se puede genera una gratis en https://aistudio.google.com/apikey)
+Create a `.env` file with the `AI_API_KEY` variable (currently only works with Gemini, you can get a free key at [https://aistudio.google.com/apikey](https://aistudio.google.com/apikey)):
 
 ```bash
 AI_API_KEY=XXXXXXXXXXXX
 ```
 
-Iniciar OSD en el nuevo proyecto
+Initialize OSD in your new project:
 
 ```bash
 cd new-project
 osd-cli -i
 ```
 
-En este momento OSD creo algunas carpetas y un archivo
+At this point, OSD will create some folders and a file:
 
 ```
 __tests__
@@ -46,52 +47,55 @@ __osd__
 .osd
 ```
 
-Solo faltaria crear la carpeta donde se deposite el codigo Ej.: src
+Now just create the folder where the code will be stored, e.g., `src`.
 
-## Hello world
+## Hello World
 
-Crear un archivo dentro de la carpeta \_\_osd\_\_ llamado index.js.osd con el siguiente contenido
+Create a file inside the `__osd__` folder named `index.js.osd` with the following content:
 
 ```bash
 {
-    "prompt":"generar una funcion que devuelva por consola Hello World"
+    "prompt": "generate a function that logs Hello World to the console"
 }
 ```
 
-IMPORTANTE: el arbol de carpetas generado en \_\_osd\_\_ sera el mismo que se genere en la careta src
+IMPORTANT: The folder structure generated inside `__osd__` will be mirrored in the `src` folder.
 
-En la raiz del proyecto correr el commando osd-cli
+Run the `osd-cli` command at the root of the project:
 
 ```bash
 /user/new-project > osd-cli
-
 ```
 
-Ya podemos ver nuestro primer codigo dentro de ./src
+You can now see your first code inside `./src`.
 
-## Archivo de configuracion general
+## General Configuration File
 
-El archivo de configuracion general (.osd) se encarga de definir algunas configuraciones para poder adaptarse a proyectos preexistentes.
+The general configuration file (`.osd`) defines some settings to help adapt to existing projects.
 
 ```bash
 {
-  "prompt": "# El projecto es en python 3.13 tener en cuenta: - no agregar el punto de entrada principal a cada archivo",
- 
+  "prompt": "# The project is in Python 3.13. Keep in mind: - do not add the main entry point to each file",
+  
   "promptFolder": "__osd__",
   "testFolder": "__tests__",
   "srcFolder": "src"
 }
 ```
 
-IMPORTANTE: si no existe este archivo OSD no reconoce el proyecto
+IMPORTANT: If this file doesn’t exist, OSD will not recognize the project.
 
-### configuracion de .osd
+### `.osd` Configuration
 
-en este archivo se puede hacer cambios para adaptarse a tu foma de trabajo.
+You can change this file to adapt it to your workflow.
 
-|                    |                                                                                                                                                                 |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| prompt             | se encarga de definir las condiciones de como queres que trabaje la IA. Se debe definir el lenguaje y cuestiones generales que nos gustaria que tenga el codigo |
-| promptFolder       | aca se crean los archivo osd que luego son usados para crear el codigo, los test y la estrucutra de carpetas en src                                             |
-| testFolder         | carpeta donde se va a crear los archivos de test                                                                                                                |
-| srcFolder          | es la carpeta donde se va a crear el codigo                                                                                                                     |
+| Setting      | Description                                                                                                                             |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| prompt       | Defines the conditions for how you want the AI to work. You should define the language and general requirements for the generated code. |
+| promptFolder | This is where the .osd files are created, which are then used to generate code, tests, and the folder structure in `src`.               |
+| testFolder   | Folder where test files will be created.                                                                                                |
+| srcFolder    | Folder where the code will be generated.                                                                                                |
+
+### .env
+
+In the `.env` file, you can set the variable `OSD_DEBUG=true` to activate debug mode.
