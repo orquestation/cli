@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import log from "./logger.js";
-import persistFile from "./persistFile.js";
-import { DEFAULTS } from "./constants.js";
+import log from "../utils/logger.js";
+import persistFile from "../utils/persistFile.js";
+import { DEFAULTS } from "../constants.js";
 
 export default async function Initialization(
   projectFolder,
@@ -19,9 +19,6 @@ export default async function Initialization(
         JSON.stringify(
           {
             prompt: "all is in javascript and imports are module",
-            language: {
-              extension: "js",
-            },
             promptFolder: DEFAULTS.promptFolder,
             testFolder: DEFAULTS.testFolder,
             srcFolder: DEFAULTS.srcFolder,

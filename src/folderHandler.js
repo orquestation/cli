@@ -2,10 +2,11 @@ import fs from "fs";
 import path from "node:path";
 
 import fileHandler from "./fileHandler.js";
-import log from "./logger.js";
+import log from "./utils/logger.js";
 
-import Context from "./context.js";
+import Context from "./entities/context.js";
 import { DEFAULTS } from "./constants.js";
+import PromptFile from "./entities/promptFile.js";
 
 export default async function folderHandler(currentFolder) {
   await fs.readdir(
@@ -25,7 +26,7 @@ export default async function folderHandler(currentFolder) {
           await folderHandler(fullPath);
         }
         if (file.isFile()) {
-          await fileHandler(file);
+          await fileHandler(new PromptFile(file));
         }
       }
     }

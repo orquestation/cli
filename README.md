@@ -1,8 +1,7 @@
 ![OSD-cli](https://github.com/nardote/osd-cli/blob/main/assets/logo.png "OSD-cli Logo")
 
 # OSD-cli (orquestation software development)
-
-osd es una propuesta para estructrar el desarrollo de software con Inteligencia Artifical. Definido reglas claras en el contexto de cada bloque de codigo.
+OSD te devuelve el poder sobre el código generado por IA. En lugar de tratar con 'cajas negras' difíciles de gestionar, OSD estructura tu desarrollo mediante 'prompts' de diseño claros y versionables —almacenados en archivos .osd individuales— para cada módulo de tu aplicación. Define el contexto global y las directrices del lenguaje en un archivo de configuración central .osd, y observa cómo la herramienta orquesta la creación de código fuente predecible y los tests correspondientes en tu lenguaje preferido. ¿Necesitas modificar, regenerar o entender una funcionalidad? Simplemente revisa o ajusta su prompt. Con OSD-cli, transformas los prompts en la columna vertebral de un desarrollo ágil, mantenible y auto-documentado, recuperando el control y la claridad en la era de la IA.
 
 ## Instalacion
 
@@ -51,7 +50,7 @@ Solo faltaria crear la carpeta donde se deposite el codigo Ej.: src
 
 ## Hello world
 
-Crear un archivo dentro de la carpeta \_\_osd\_\_ llamado index.osd.json con el siguiente contenido
+Crear un archivo dentro de la carpeta \_\_osd\_\_ llamado index.js.osd con el siguiente contenido
 
 ```bash
 {
@@ -77,9 +76,7 @@ El archivo de configuracion general (.osd) se encarga de definir algunas configu
 ```bash
 {
   "prompt": "# El projecto es en python 3.13 tener en cuenta: - no agregar el punto de entrada principal a cada archivo",
-  "language": {
-    "extension": "py"
-  },
+ 
   "promptFolder": "__osd__",
   "testFolder": "__tests__",
   "srcFolder": "src"
@@ -95,7 +92,6 @@ en este archivo se puede hacer cambios para adaptarse a tu foma de trabajo.
 |                    |                                                                                                                                                                 |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | prompt             | se encarga de definir las condiciones de como queres que trabaje la IA. Se debe definir el lenguaje y cuestiones generales que nos gustaria que tenga el codigo |
-| language.extension | se define la extension en la que quremos que se creen los archivos                                                                                              |
 | promptFolder       | aca se crean los archivo osd que luego son usados para crear el codigo, los test y la estrucutra de carpetas en src                                             |
 | testFolder         | carpeta donde se va a crear los archivos de test                                                                                                                |
 | srcFolder          | es la carpeta donde se va a crear el codigo                                                                                                                     |

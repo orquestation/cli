@@ -1,3 +1,4 @@
+
 const DEFAULTS = {
   promptFolder: "__osd__",
   srcFolder: "src",

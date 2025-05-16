@@ -1,8 +1,9 @@
 import path from "path";
 import fs from "fs";
+import YML from "yaml";
 
-import { DEFAULTS } from "./constants.js";
-import log from "./logger.js";
+import { DEFAULTS } from "../constants.js";
+import log from "../utils/logger.js";
 
 class Context {
   projectFolder;
@@ -86,8 +87,13 @@ class Context {
   loadConfig() {
     try {
       const generalConfig = fs.readFileSync(this.generalConfigFile, "utf8");
-      log.msg(`Archivo de configuración leído`);
-      this.generalConfig = JSON.parse(generalConfig);
+      log.msg(`Config file read`);
+      //detect if generalConfig is a json or a yml
+      if (generalConfig.startsWith("{") || generalConfig.startsWith("[")) {
+        this.generalConfig = JSON.parse(generalConfig);
+      } else {
+        this.generalConfig = YML.parse(generalConfig);
+      }
     } catch (err) {
       throw new Error(
         `Error al leer el archivo de configuración ${DEFAULTS.generalConfigFile}: ${err.message}`

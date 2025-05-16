@@ -5,22 +5,9 @@ import { program } from "commander";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import folderHandler from "./src/folderHandler.js";
-import Context from "./src/context.js";
-import Initialization from "./src/initialization.js";
-import log from "./src/logger.js";
+import Initialization from "./src/commands/initialization.js";
+import processFiles from "./src/commands/processFiles.js";
 
-async function processFiles(pathProject, ignoreBlocked) {
-  const currentDir = pathProject ? path.resolve(pathProject) : process.cwd();
-
-  try {
-    Context.inti(currentDir);
-    if (ignoreBlocked) Context.setIgnoreBlocked();
-    folderHandler();
-  } catch (e) {
-    log.error(e.message, "error");
-  }
-}
 
 program
   .option("-p, --path <path>", "obsolute path to root project")
@@ -40,3 +27,6 @@ program
   });
 
 program.parse(process.argv);
+
+
+
