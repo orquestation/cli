@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 import path from "path";
-import { program } from "commander";
+import { Command  } from "commander";
 
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import Initialization from "./src/commands/initialization.js";
-import processFiles from "./src/commands/processFiles.js";
+import Initialization from "./src/commands/initialization";
+import processFiles from "./src/commands/processFiles";
 
+
+const program = new Command();
 
 program
   .option("-p, --path <path>", "obsolute path to root project")

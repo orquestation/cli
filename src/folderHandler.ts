@@ -2,20 +2,19 @@ import fs from "fs";
 import path from "node:path";
 
 import fileHandler from "./fileHandler.js";
-import log from "./utils/logger.js";
 
 import Context from "./entities/context.js";
 import { DEFAULTS } from "./constants.js";
 import PromptFile from "./entities/promptFile.js";
 
-export default async function folderHandler(currentFolder) {
+export default async function folderHandler(currentFolder?: string) {
   await fs.readdir(
     currentFolder || Context.promptFolder,
     { withFileTypes: true },
     async (err, files) => {
       if (err) {
         throw new Error(
-          `Error al leer la carpeta ${DEFAULTS.promptFolder}: ${err.message}`
+          `Error reading folder ${DEFAULTS.promptFolder}: ${err.message}`
         );
       }
 

@@ -4,18 +4,32 @@ import { getFolderStructure } from "../utils/getFolderStructure.js";
 import fs from "node:fs";
 import YML from "yaml";
 
-export default class PromptFile {
-  name;
-  parentPath;
-  newFileName;
-  absolutePath;
 
-  srcFilePath;
-  testFilePath;
+export interface IPromptFile {
+  name: string;
+  parentPath: string;
+  newFileName: string;
+  absolutePath: string;
+  srcFilePath: string;
+  testFilePath: string;
+  content: any;
+  loadContent: () => Promise<void>;
+  persistSrcFile: (code: string) => Promise<void>;
+  persistTestFile: (test: string) => Promise<void>;
+}
 
-  content;
+export default class PromptFile implements IPromptFile {
+  name:string;
+  parentPath:string;
+  newFileName:string;
+  absolutePath:string;
 
-  constructor(file) {
+  srcFilePath:string;
+  testFilePath:string;
+
+  content:TcontentFilePrompt = {prompt:""};
+
+  constructor(file: { name: string; parentPath: string }) {
     this.name = file.name;
     this.parentPath = file.parentPath;
     this.newFileName = path.parse(file.name).name;
@@ -48,19 +62,19 @@ export default class PromptFile {
     }
   }
 
-  async persistSrcFile(code) {
+  async persistSrcFile(code: string) {
     try {
       await fs.writeFileSync(this.srcFilePath, code);
-    } catch (e) {
-      throw new Error(`Error writing src file "${this.srcFilePath}": ${e.message}`);
+    } catch (e:unknown) {
+      throw new Error(`Error writing src file "${this.srcFilePath}": ${(e as Error).message}`);
     }
   }
 
-  async persistTestFile(test) {
+  async persistTestFile(test: string) {
     try {
       await fs.writeFileSync(this.testFilePath, test);
-    } catch (e) {
-      throw new Error(`Error writing test file "${this.testFilePath}": ${e.message}`);
+    } catch (e:unknown) {
+      throw new Error(`Error writing test file "${this.testFilePath}": ${(e as Error).message}`);
     }
   }
 }
