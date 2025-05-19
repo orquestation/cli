@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "echo 'INSTALLING' && tsc",
-    "prepare": "npm i && npm run build"
+    "prepare": "npm run build"
    
   },
   "author": "Adrian Cavicchia",
