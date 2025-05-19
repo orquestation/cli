@@ -5,8 +5,8 @@ import { Command  } from "commander";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import Initialization from "./src/commands/initialization";
-import processFiles from "./src/commands/processFiles";
+import Initialization from "./src/commands/initialization.js";
+import processFiles from "./src/commands/processFiles.js";
 
 
 const program = new Command();

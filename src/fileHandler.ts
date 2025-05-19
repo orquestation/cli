@@ -5,7 +5,7 @@ import askToIa from "./utils/askToIA.js";
 import log from "./utils/logger.js";
 
 import Context from "./entities/context.js";
-import { IPromptFile } from "./entities/promptFile";
+import { IPromptFile } from "./entities/promptFile.js";
 
 export default async function fileHadler(PromptFile:IPromptFile) {
   console.group(PromptFile.name);

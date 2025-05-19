@@ -3,6 +3,7 @@ import path from "node:path";
 import { getFolderStructure } from "../utils/getFolderStructure.js";
 import fs from "node:fs";
 import YML from "yaml";
+import { TcontentFilePrompt } from "../types/TcontentFilePrompt.js";
 
 
 export interface IPromptFile {

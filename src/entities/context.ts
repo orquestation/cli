@@ -4,7 +4,7 @@ import YML from "yaml";
 
 import { DEFAULTS } from "../constants.js";
 import log from "../utils/logger.js";
-import { Tconfig } from "../types/Tconfig";
+import { Tconfig } from "../types/Tconfig.js";
 
 interface IContext {
   projectFolder: string;

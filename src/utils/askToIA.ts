@@ -2,7 +2,7 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { DEFAULTS } from "../constants.js";
 import log from "./logger.js";
-import { Tconfig } from "../types/Tconfig";
+import { Tconfig } from "../types/Tconfig.js";
 
 async function ask(prompt: string, configContent: Tconfig, test: boolean) : Promise<string> {
   const model = new ChatGoogleGenerativeAI({
