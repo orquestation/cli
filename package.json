@@ -1,6 +1,6 @@
 {
   "name": "@orquestation/cli",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "osd-cli.js",
   "repository": {
     "type": "git",
