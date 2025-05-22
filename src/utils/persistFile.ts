@@ -21,7 +21,7 @@ export default async function persistFile(filePath: string, content: string) {
   try {
     await fs.promises.writeFile(filePath, content);
     log.msg(`File written: ${filePath}`);
-  } catch (writeError) {
-    throw new Error(`Error writing the file: ${writeError}`);
+  } catch (writeError: unknown) {
+    throw new Error(`Error writing the file: ${(writeError as Error).message}`);
   }
 }

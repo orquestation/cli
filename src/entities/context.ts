@@ -24,7 +24,8 @@ class Context implements IContext {
   testFolder: string = "";
   generalConfigFile: string = "";
   enviromentVariable: string = "";
-  generalConfig: Tconfig = {prompt:"",promptFolder: ""};
+  extensionPrompt: string = "";
+  generalConfig: Tconfig = {prompt:"",promptFolder: "",extensionPrompt: ""};
   ignoreBlocked: boolean = false;
 
   constructor() {}
@@ -57,6 +58,8 @@ class Context implements IContext {
       this.projectFolder,
       this.generalConfig.enviromentVariable || DEFAULTS.enviromentVariable
     );
+
+    this.extensionPrompt = this.generalConfig.extensionPrompt || DEFAULTS.extensionPrompt;
 
     this.validateFolderEstructure();
     this.validateEniromentVariable();

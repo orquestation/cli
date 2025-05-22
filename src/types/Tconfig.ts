@@ -4,4 +4,5 @@ export type Tconfig = {
     testFolder?: string;
     srcFolder?: string;
     enviromentVariable?: string;
+    extensionPrompt?: string;
 }

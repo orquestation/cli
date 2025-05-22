@@ -1,13 +1,13 @@
 import path from "path";
 
 import runCommand from "./utils/runCommand.js";
-import askToIa from "./utils/askToIA.js";
+import osdToCodeAI from "./utils/osdToCodeAI.js";
 import log from "./utils/logger.js";
 
-import Context from "./entities/context.js";
-import { IPromptFile } from "./entities/promptFile.js";
+import Context from "./entities/Context.js";
+import { IFile } from "./entities/File.js";
 
-export default async function fileHadler(PromptFile:IPromptFile) {
+export default async function fileHadler(PromptFile:IFile) {
   console.group(PromptFile.name);
  
 
@@ -15,6 +15,7 @@ export default async function fileHadler(PromptFile:IPromptFile) {
    
 
     await PromptFile.loadContent();
+    await PromptFile.parseContent();
   
 
     log.debug(PromptFile.content);
@@ -30,7 +31,7 @@ export default async function fileHadler(PromptFile:IPromptFile) {
 
     log.msg(`WORKING ${path.join(PromptFile.parentPath, PromptFile.name)}`);
 
-    const generatedCode = await askToIa(PromptFile.content, Context.generalConfig, PromptFile.content.test || true );
+    const generatedCode = await osdToCodeAI(PromptFile.content.prompt, Context.generalConfig, PromptFile.content.test || true );
 
     const jsonGeneratedCode = JSON.parse(
       generatedCode

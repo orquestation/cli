@@ -7,7 +7,7 @@ dotenv.config();
 
 import Initialization from "./src/commands/initialization.js";
 import processFiles from "./src/commands/processFiles.js";
-
+import srcToOsd from "./src/commands/srcToOsd.js";
 
 const program = new Command();
 
@@ -16,19 +16,28 @@ program
   .option("-i, --init", "create those necesary folders")
   .option("-o, --onlyConfig", "Create only config file")
   .option("-a, --ignoreBlocked", "ignore osd blocked and process all the files")
-  .action((option) => {
-    if (option.init) {
-      const currentDir = option.path
-        ? path.resolve(option.path)
-        : process.cwd();
-      Initialization(currentDir, option);
-
-      return;
-    }
-    processFiles(option.path, option.ignoreBlocked);
-  });
+  .option("-s, --srcToOsd", "get you src files and transform them to osd files");
+ 
 
 program.parse(process.argv);
 
 
+// init project, create all necesarie folders and files
+if(program.opts().init) {
+  const currentDir = program.opts().path
+    ? path.resolve(program.opts().path)
+    : process.cwd();
+  Initialization(currentDir, {onlyConfig: program.opts().onlyConfig});
+}
+
+
+if(program.opts().srcToOsd) {
+  srcToOsd(program.opts().path);
+}
+
+
+// main process, process all files
+if(!program.opts().init && !program.opts().srcToOsd){
+  await processFiles(program.opts().path, program.opts().ignoreBlocked);
+}
 

@@ -3,8 +3,9 @@ import { PromptTemplate } from "@langchain/core/prompts";
 import { DEFAULTS } from "../constants.js";
 import log from "./logger.js";
 import { Tconfig } from "../types/Tconfig.js";
+import ask from "./codeToOsdAI.js";
 
-async function ask(prompt: string, configContent: Tconfig, test: boolean) : Promise<string> {
+async function osdToCodeAI(prompt: string, configContent: Tconfig, test: boolean) : Promise<string> {
   const model = new ChatGoogleGenerativeAI({
     model: "gemini-2.0-flash",
     apiKey: process.env[DEFAULTS.AI_API_KEY],
@@ -55,4 +56,4 @@ async function ask(prompt: string, configContent: Tconfig, test: boolean) : Prom
   return response?.content as string;
 }
 
-export default ask;
+export default osdToCodeAI;
