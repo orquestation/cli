@@ -5,8 +5,10 @@ import persistFile from "../utils/persistFile.js";
 import { DEFAULTS } from "../constants.js";
 
 export default async function Initialization(
-  projectFolder,
-  options = { onlyConfig: false }
+  projectFolder: string,
+  options: {
+    onlyConfig: boolean;
+  } = { onlyConfig: false }
 ) {
   const configFilePath = path.join(projectFolder, DEFAULTS.generalConfigFile);
   try {
@@ -51,7 +53,7 @@ export default async function Initialization(
         }
       );
     }
-  } catch (e) {
-    log.error(e.message);
+  } catch (e: unknown) {
+    log.error((e as Error).message);
   }
 }

@@ -5,14 +5,7 @@
 OSD gives you back control over AI-generated code. Instead of dealing with hard-to-manage "black boxes," OSD structures your development through clear, versionable design prompts — stored in individual .osd files — for each module of your application. Define the global context and language guidelines in a central configuration file (.osd), and watch the tool orchestrate predictable source code creation along with the corresponding tests in your preferred language. Need to modify, regenerate, or understand a functionality? Just review or tweak its prompt. With OSD-cli, prompts become the backbone of an agile, maintainable, and self-documented development process — restoring control and clarity in the AI era.
 
 ## Installation
-
-Clone the project:
-
-```bash
-git clone git@github.com:nardote/osd-cli.git
-```
-
-Set osd-cli as global:
+Install osd-cli as global:
 
 ```bash
 npm i -g @orquestation/cli
@@ -53,10 +46,15 @@ Now just create the folder where the code will be stored, e.g., `src`.
 
 Create a file inside the `__osd__` folder named `index.js.osd` with the following content:
 
-```bash
+```json
 {
     "prompt": "generate a function that logs Hello World to the console"
 }
+```
+or
+```yaml
+prompt: >
+  generate a function that logs Hello World to the console
 ```
 
 IMPORTANT: The folder structure generated inside `__osd__` will be mirrored in the `src` folder.
@@ -73,7 +71,7 @@ You can now see your first code inside `./src`.
 
 The general configuration file (`.osd`) defines some settings to help adapt to existing projects.
 
-```bash
+```json
 {
   "prompt": "# The project is in Python 3.13. Keep in mind: - do not add the main entry point to each file",
   
@@ -81,6 +79,15 @@ The general configuration file (`.osd`) defines some settings to help adapt to e
   "testFolder": "__tests__",
   "srcFolder": "src"
 }
+```
+or
+```yaml
+prompt: >
+  # The project is in Python 3.13. Keep in mind: - do not add the main entry point to each file
+
+promptFolder: __osd__
+testFolder: __tests__
+srcFolder: src
 ```
 
 IMPORTANT: If this file doesn’t exist, OSD will not recognize the project.
@@ -99,3 +106,35 @@ You can change this file to adapt it to your workflow.
 ### .env
 
 In the `.env` file, you can set the variable `OSD_DEBUG=true` to activate debug mode.
+
+# Blocked files
+
+You can block OSD from generating code again. This can be done by adding the parameter block set to true in the desired file within the __osd__ folder.
+
+```json
+{
+    "prompt": "generate a function that logs Hello World to the console",
+    "block": true
+}
+```
+or
+```yaml
+prompt: >
+  generate a function that logs Hello World to the console
+block: true
+```
+
+
+# Create osd files from code
+if you have a src folder with code, you can create osd files from it
+```bash
+osd-cli -s
+```
+
+
+# ignore blocked files
+if you want to ignore blocked files, you can use the -i option
+```bash
+osd-cli -i
+```
+

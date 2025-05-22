@@ -1,6 +1,6 @@
 {
   "name": "@orquestation/cli",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "main": "osd-cli.js",
   "repository": {
     "type": "git",
@@ -12,7 +12,12 @@
   "homepage": "https://github.com/orquestation/cli#readme",
   "type": "module",
   "bin": {
-    "osd-cli": "osd-cli.js"
+    "osd-cli": "./dist/osd-cli.js"
+  },
+  "scripts": {
+    "build": "echo 'INSTALLING' && tsc",
+    "prepare": "npm run build"
+   
   },
   "author": "Adrian Cavicchia",
   "license": "AGPL-3.0",
@@ -25,5 +30,12 @@
     "dotenv": "^16.5.0",
     "langchain": "^0.3.24",
     "yaml": "^2.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.18",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20.0.0" 
   }
 }

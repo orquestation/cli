@@ -4,20 +4,33 @@ import YML from "yaml";
 
 import { DEFAULTS } from "../constants.js";
 import log from "../utils/logger.js";
+import { Tconfig } from "../types/Tconfig.js";
 
-class Context {
-  projectFolder;
-  srcFolder;
-  promptFolder;
-  testFolder;
-  generalConfigFile;
+interface IContext {
+  projectFolder: string;
+  srcFolder: string;
+  promptFolder: string;
+  testFolder: string;
+  generalConfigFile: string;
+  enviromentVariable: string;
+  generalConfig: any;
+  ignoreBlocked: boolean;
+}
 
-  generalConfig;
-  ignoreBlocked;
+class Context implements IContext {
+  projectFolder: string = "";
+  srcFolder: string = "";
+  promptFolder: string = "";
+  testFolder: string = "";
+  generalConfigFile: string = "";
+  enviromentVariable: string = "";
+  extensionPrompt: string = "";
+  generalConfig: Tconfig = {prompt:"",promptFolder: "",extensionPrompt: ""};
+  ignoreBlocked: boolean = false;
 
   constructor() {}
 
-  inti(projectFolder) {
+  inti(projectFolder:string) {
     this.projectFolder = projectFolder;
 
     this.generalConfigFile = path.join(
@@ -45,6 +58,8 @@ class Context {
       this.projectFolder,
       this.generalConfig.enviromentVariable || DEFAULTS.enviromentVariable
     );
+
+    this.extensionPrompt = this.generalConfig.extensionPrompt || DEFAULTS.extensionPrompt;
 
     this.validateFolderEstructure();
     this.validateEniromentVariable();
@@ -94,9 +109,9 @@ class Context {
       } else {
         this.generalConfig = YML.parse(generalConfig);
       }
-    } catch (err) {
+    } catch (e: unknown) {
       throw new Error(
-        `Error al leer el archivo de configuración ${DEFAULTS.generalConfigFile}: ${err.message}`
+        `Error al leer el archivo de configuración ${DEFAULTS.generalConfigFile}: ${(e as Error).message}`
       );
     }
   }
