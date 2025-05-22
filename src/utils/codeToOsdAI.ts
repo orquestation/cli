@@ -31,7 +31,8 @@ async function ask(code: string) : Promise<string> {
     code: JSON.stringify(code),
   });
 
-  log.debug(response?.content as string);
+  log.debug(`--> ${code}`)
+  log.debug(`<-- ${response?.content as string}`);
   return response?.content as string;
 }
 
