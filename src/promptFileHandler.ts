@@ -8,30 +8,24 @@ import Context from "./entities/Context.js";
 import { IFile } from "./entities/File.js";
 
 export default async function fileHadler(PromptFile:IFile) {
-  console.group(PromptFile.name);
- 
+  console.group(PromptFile.original.name);
 
   try {
    
-
-    await PromptFile.loadContent();
-    await PromptFile.parseContent();
-  
-
     log.debug(PromptFile.content);
 
-    if (PromptFile.content.block && !Context.ignoreBlocked) {
-      log.warn(`BLOCKED ${path.join(PromptFile.parentPath, PromptFile.name)}`);
+    if (PromptFile.content?.block && !Context.ignoreBlocked) {
+      log.warn(`BLOCKED ${path.join(PromptFile.original.parentPath, PromptFile.original.name)}`);
 
       console.groupEnd();
       return false;
     }
 
-    log.msg(`File ${PromptFile.name} -> New File ${PromptFile.newFileName}`);
+    log.msg(`File ${PromptFile.original.name} -> New File ${PromptFile.src.name}`);
 
-    log.msg(`WORKING ${path.join(PromptFile.parentPath, PromptFile.name)}`);
+    log.msg(`WORKING ${path.join(PromptFile.original.parentPath, PromptFile.original.name)}`);
 
-    const generatedCode = await osdToCodeAI(PromptFile.content.prompt, Context.generalConfig, PromptFile.content.test || true );
+    const generatedCode = await osdToCodeAI(PromptFile.content?.prompt, Context.generalConfig, PromptFile.content?.test || true );
 
     const jsonGeneratedCode = JSON.parse(
       generatedCode
@@ -55,7 +49,7 @@ export default async function fileHadler(PromptFile:IFile) {
     return true;
   } catch (error:unknown) {
     throw new Error(
-      `Error al procesar el archivo "${PromptFile.name}": ${(error as Error).message}`
+      `Error al procesar el archivo "${PromptFile.original.name}": ${(error as Error).message}`
     );
   } finally {
     console.groupEnd();

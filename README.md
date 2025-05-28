@@ -13,21 +13,20 @@ npm i -g @orquestation/cli
 
 ## Project Setup
 
-Create a folder for your new project:
-
-```bash
-mkdir new-project
-```
-
-Create a `.env` file with the `AI_API_KEY` variable (currently only works with Gemini, you can get a free key at [https://aistudio.google.com/apikey](https://aistudio.google.com/apikey)):
+In your proyect add enviroment variable `AI_API_KEY` (currently only works with Gemini, you can get a free key at [https://aistudio.google.com/apikey](https://aistudio.google.com/apikey)):
 
 ```bash
 AI_API_KEY=XXXXXXXXXXXX
 ```
 
-Initialize OSD in your new project:
+# Initialize OSD 
+Your have 2 options from a new project o preexisting project
+
+## New project
+Create your proyect folder and initialize OSD
 
 ```bash
+mkdir new-project
 cd new-project
 osd-cli -i
 ```
@@ -42,7 +41,7 @@ __osd__
 
 Now just create the folder where the code will be stored, e.g., `src`.
 
-## Hello World
+### Hello World
 
 Create a file inside the `__osd__` folder named `index.js.osd` with the following content:
 
@@ -67,9 +66,34 @@ Run the `osd-cli` command at the root of the project:
 
 You can now see your first code inside `./src`.
 
-## General Configuration File
+## Preexisting project
+### Initialize OSD
+```bash
+cd your-project
+osd-cli -i
+```
+At this point, OSD will create some folders and a file:
 
-The general configuration file (`.osd`) defines some settings to help adapt to existing projects.
+```
+__tests__
+__osd__
+.osd
+```
+
+Take time to configure src path in the .osd file
+
+### Create osd files from code
+```bash
+osd-cli -s
+```
+
+When finish processing, you will have a `__osd__` folder with osd files and a `src` folder with the code.
+
+
+
+# General Configuration File
+
+The general configuration file (/your-project/.osd) is responsible for defining the project's overall behavior. Here, you can specify which libraries you want to use or special conditions when generating code. You can also define folder paths.
 
 ```json
 {
@@ -90,22 +114,27 @@ testFolder: __tests__
 srcFolder: src
 ```
 
-IMPORTANT: If this file doesn’t exist, OSD will not recognize the project.
+**IMPORTANT:** If this file doesn’t exist, OSD will not recognize the project.
 
-### `.osd` Configuration
+### Parameters
 
-You can change this file to adapt it to your workflow.
+| Setting      | Description| Required |
+| ------------ | ------------ | ------------ |
+| prompt       | Defines the conditions for how you want the AI to work. You should define the language and general requirements for the generated code. | true |
+| promptFolder | This is where the .osd files are created, which are then used to generate code, tests, and the folder structure in `src`. | true |
+| testFolder   | Folder where test files will be created. | true |
+| srcFolder    | Folder where the code will be generated. | true |
 
-| Setting      | Description                                                                                                                             |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| prompt       | Defines the conditions for how you want the AI to work. You should define the language and general requirements for the generated code. |
-| promptFolder | This is where the .osd files are created, which are then used to generate code, tests, and the folder structure in `src`.               |
-| testFolder   | Folder where test files will be created.                                                                                                |
-| srcFolder    | Folder where the code will be generated.                                                                                                |
 
-### .env
 
-In the `.env` file, you can set the variable `OSD_DEBUG=true` to activate debug mode.
+### Individual `.osd` file (in `__osd__` folder)
+
+| Setting      | Description  | Type | Values | Default | Required |
+| ------------ | ------------ | ------------ | ------------ | ------------ | ------------ |
+| prompt       | Define what code the AI should generate. Explain in detail. | string |  |  | true |
+| block | Its purpose is to stop the AI from regenerating the code. | boolean | true / false | false | false |
+| direction   | You can define the direction in which files are generated. For example, you might have code you prefer to write manually, while the AI handles generating the OSD file, or vice versa. The default is osd-code. | string | osd-code / code-osd | osd-code | false |
+
 
 # Blocked files
 
@@ -124,17 +153,12 @@ prompt: >
 block: true
 ```
 
-
-# Create osd files from code
-if you have a src folder with code, you can create osd files from it
-```bash
-osd-cli -s
-```
-
-
-# ignore blocked files
+# Ignore blocked files
 if you want to ignore blocked files, you can use the -i option
 ```bash
 osd-cli -i
 ```
 
+### DEBUG MODE
+
+In the `.env` file, you can set the variable `OSD_DEBUG=true` to activate debug mode.
