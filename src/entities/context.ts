@@ -13,6 +13,7 @@ interface IContext {
   testFolder: string;
   generalConfigFile: string;
   enviromentVariable: string;
+  readme: string;
   generalConfig: any;
   ignoreBlocked: boolean;
 }
@@ -24,13 +25,19 @@ class Context implements IContext {
   testFolder: string = "";
   generalConfigFile: string = "";
   enviromentVariable: string = "";
+  readme: string = "";
   extensionPrompt: string = "";
-  generalConfig: Tconfig = {prompt:"",promptFolder: "",extensionPrompt: ""};
+  generalConfig: Tconfig = {
+    prompt: "",
+    promptFolder: "",
+    extensionPrompt: "",
+    readme: "",
+  };
   ignoreBlocked: boolean = false;
 
   constructor() {}
 
-  inti(projectFolder:string) {
+  inti(projectFolder: string) {
     this.projectFolder = projectFolder;
 
     this.generalConfigFile = path.join(
@@ -59,7 +66,13 @@ class Context implements IContext {
       this.generalConfig.enviromentVariable || DEFAULTS.enviromentVariable
     );
 
-    this.extensionPrompt = this.generalConfig.extensionPrompt || DEFAULTS.extensionPrompt;
+    this.readme = path.join(
+      this.projectFolder,
+      this.generalConfig.readme || DEFAULTS.readme
+    );
+
+    this.extensionPrompt =
+      this.generalConfig.extensionPrompt || DEFAULTS.extensionPrompt;
 
     this.validateFolderEstructure();
     this.validateEniromentVariable();
@@ -111,7 +124,9 @@ class Context implements IContext {
       }
     } catch (e: unknown) {
       throw new Error(
-        `Error al leer el archivo de configuración ${DEFAULTS.generalConfigFile}: ${(e as Error).message}`
+        `Error al leer el archivo de configuración ${
+          DEFAULTS.generalConfigFile
+        }: ${(e as Error).message}`
       );
     }
   }

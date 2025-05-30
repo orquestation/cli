@@ -1,9 +1,9 @@
-import File from "./entities/File.js";
+import File, { IFile } from "./entities/File.js";
 import promptFileHandler from "./promptFileHandler.js";
 import srcFileHandler from "./srcFileHandler.js";
 import log from "./utils/logger.js";
 
-export default async function setDirection (file: File) {
+export default async function setDirection (file: IFile) {
     await file.loadContent();
     // TODO: review code
     if(file.original.type === "prompt") {

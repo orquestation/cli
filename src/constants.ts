@@ -1,4 +1,3 @@
-
 const DEFAULTS = {
   promptFolder: "__osd__",
   srcFolder: "src",
@@ -6,6 +5,7 @@ const DEFAULTS = {
   generalConfigFile: ".osd",
   extensionPrompt: ".osd",
   enviromentVariable: ".env",
+  readme: "README.md",
   AI_API_KEY: "AI_API_KEY",
 };
 

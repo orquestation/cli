@@ -4,11 +4,13 @@ import log from "../utils/logger.js";
 import folderHandler from "../folderHandler.js";
 import promptFileHandler from "../promptFileHandler.js";
 
-export default async function processFiles(pathProject: string, ignoreBlocked: boolean) {
+export default async function biDirectional(
+  pathProject: string,
+  ignoreBlocked: boolean
+) {
   const currentDir = pathProject ? path.resolve(pathProject) : process.cwd();
 
   try {
-
     Context.inti(currentDir);
     if (ignoreBlocked) Context.setIgnoreBlocked();
     folderHandler(promptFileHandler, Context.promptFolder);

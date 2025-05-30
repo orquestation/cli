@@ -25,6 +25,7 @@ export default async function Initialization(
             testFolder: DEFAULTS.testFolder,
             srcFolder: DEFAULTS.srcFolder,
             enviromentVariable: DEFAULTS.enviromentVariable,
+            readme: DEFAULTS.readme,
           },
           null,
           2

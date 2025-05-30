@@ -1,17 +1,13 @@
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { PromptTemplate } from "@langchain/core/prompts";
-import { DEFAULTS } from "../constants.js";
-import log from "./logger.js";
-import { Tconfig } from "../types/Tconfig.js";
-import ask from "./codeToOsdAI.js";
+import log from "../logger.js";
+import { Tconfig } from "../../types/Tconfig.js";
+import model from "./model.js";
 
-async function osdToCodeAI(prompt: string, configContent: Tconfig, test: boolean) : Promise<string> {
-  const model = new ChatGoogleGenerativeAI({
-    model: "gemini-2.0-flash",
-    apiKey: process.env[DEFAULTS.AI_API_KEY],
-    temperature: 0,
-  });
-
+async function osdToCodeAI(
+  prompt: string,
+  configContent: Tconfig,
+  test: boolean
+): Promise<string> {
   let promptTemplate;
   if (test) {
     promptTemplate = new PromptTemplate({
@@ -45,14 +41,15 @@ async function osdToCodeAI(prompt: string, configContent: Tconfig, test: boolean
     });
   }
 
-  const chain = promptTemplate.pipe(model);
+  const chain = promptTemplate.pipe(model());
 
   const response = await chain.invoke({
     prompt: JSON.stringify(prompt),
     basePrompt: configContent.prompt,
   });
 
-  log.debug(response?.content as string);
+  log.debug(`osd To Code --> ${prompt}`);
+  log.debug(`osd To Code <-- ${response?.content as string}`);
   return response?.content as string;
 }
 
